@@ -7,20 +7,14 @@
 
 import SwiftUI
 
-extension Bundle {
-    var currentVersion: String {
-        return self.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
-    }
-}
-
-struct ContentView: View {
+public struct ContentView: View {
     @State private var updateInfo: UpdateInfo?
     @State private var showAlert = false
     @State private var mandatoryUpdate = false
     @State private var latestVersion = ""
-    @State private var currentVersion: String = Bundle.main.currentVersion // Fetches the current app version
+    @State private var currentVersion: String = Bundle.main.currentVersion
 
-    var body: some View {
+    public var body: some View {
         VStack {
             if let updateInfo = updateInfo {
                 Text("Current Version: \(currentVersion)")
@@ -57,7 +51,9 @@ struct ContentView: View {
         }
     }
 
-    func checkForUpdates() {
+    public init() {}
+
+    private func checkForUpdates() {
         guard let url = URL(string: "http://localhost:3000/checkForUpdates") else {
             print("Invalid URL")
             return
@@ -83,14 +79,14 @@ struct ContentView: View {
         }.resume()
     }
 
-    func evaluateUpdateInfo(_ versions: [VersionInfo]) {
+    private func evaluateUpdateInfo(_ versions: [VersionInfo]) {
         guard let latestVersionInfo = versions.sorted(by: { $0.version > $1.version }).first else { return }
         latestVersion = latestVersionInfo.version
         mandatoryUpdate = latestVersionInfo.mandatory
         showAlert = latestVersion.compare(currentVersion, options: .numeric) == .orderedDescending
     }
 
-    func handleUpdate() {
+    private func handleUpdate() {
         currentVersion = latestVersion
         showAlert = false
         print("Version updated to \(latestVersion)")

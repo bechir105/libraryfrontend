@@ -7,21 +7,28 @@
 
 import Foundation
 
-struct VersionInfo: Codable, Identifiable {
-    var id: String
-    var version: String
-    var mandatory: Bool
+public struct VersionInfo: Codable, Identifiable {
+    public var id: String
+    public var version: String
+    public var mandatory: Bool
 
-   
-    enum CodingKeys: String, CodingKey {
-        case id = "_id" // Map the JSON key "_id" to the property "id"
+    public enum CodingKeys: String, CodingKey {
+        case id = "_id"
         case version
         case mandatory
     }
+
+    public init(id: String, version: String, mandatory: Bool) {
+        self.id = id
+        self.version = version
+        self.mandatory = mandatory
+    }
 }
 
-struct UpdateInfo: Codable {
-    var versions: [VersionInfo]
+public struct UpdateInfo: Codable {
+    public var versions: [VersionInfo]
+
+    public init(versions: [VersionInfo]) {
+        self.versions = versions
+    }
 }
-
-

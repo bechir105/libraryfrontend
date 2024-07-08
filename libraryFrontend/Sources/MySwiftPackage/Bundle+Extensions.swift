@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+public extension Bundle {
+    var currentVersion: String {
+        return self.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
+    }
+}
