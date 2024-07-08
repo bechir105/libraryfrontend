@@ -54,7 +54,7 @@ public struct ContentView: View {
     public init() {}
 
     private func checkForUpdates() {
-        guard let url = URL(string: "http://localhost:3000/checkForUpdates") else {
+        guard let url = URL(string: "https://librarybackend-vtqc.onrender.com/checkForUpdates") else {
             print("Invalid URL")
             return
         }
